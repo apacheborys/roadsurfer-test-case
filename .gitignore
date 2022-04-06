@@ -1,0 +1,13 @@
+.idea
+###> symfony/framework-bundle ###
+app/.env
+app/.env.test
+app/var/
+app/vendor/
+###< symfony/framework-bundle ###
+mysql
+
+###> symfony/phpunit-bridge ###
+app/.phpunit
+app/phpunit.xml
+###< symfony/phpunit-bridge ###
