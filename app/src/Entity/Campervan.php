@@ -11,6 +11,8 @@ class Campervan
 {
     private UuidInterface $id;
 
+    private string $plateNumber;
+
     private array $metaData;
 
     private CampervanType $type;
