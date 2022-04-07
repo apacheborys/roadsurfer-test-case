@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class Booking
+class Order
 {
     /**
      * @var UuidInterface
@@ -26,12 +26,12 @@ class Booking
     private Customer $customer;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Campervan", mappedBy="booking")
+     * @ORM\OneToMany(targetEntity="App\Entity\Campervan", mappedBy="order")
      */
     private Collection $campers;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Equipment", mappedBy="booking")
+     * @ORM\OneToMany(targetEntity="App\Entity\Equipment", mappedBy="order")
      */
     private Collection $equipments;
 
@@ -48,7 +48,12 @@ class Booking
     /**
      * @ORM\Column(type="datetime")
      */
-    private \DatePeriod $period;
+    private \DateTimeImmutable $startDate;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private \DateTimeImmutable $endDate;
 
     /**
      * @ORM\Column(type="json")

@@ -4,8 +4,6 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-        bind:
-            string $projectDir: '%kernel.project_dir%'
 
     App\:
         resource: '../src/'
@@ -14,3 +12,7 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
             - '../src/Tests/'
+
+    App\Resolver\EquipmentDemandResolver:
+        tags:
+            - { name: controller.argument_value_resolver, priority: 50 }
