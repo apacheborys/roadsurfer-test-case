@@ -46,4 +46,22 @@ class Equipment
      * @ORM\OneToMany(targetEntity="App\Entity\Station", mappedBy="equipment")
      */
     private ?Station $station;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Order")
+     */
+    private ?Order $order;
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id->toString(),
+            'type' => $this->type,
+            'price' => (array) $this->price,
+            'metaData' => $this->metaData,
+            'state' => $this->state,
+            'station' => $this->station?->getId()->toString(),
+            'order' => $this->order?->getId()->toString(),
+        ];
+    }
 }

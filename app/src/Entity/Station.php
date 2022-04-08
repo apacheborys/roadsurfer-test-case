@@ -40,4 +40,9 @@ class Station
      * @ORM\OneToMany(targetEntity="App\Entity\Equipment", mappedBy="station")
      */
     private Collection $equipment;
+
+    public function getId(): UuidInterface
+    {
+        return $this->id;
+    }
 }

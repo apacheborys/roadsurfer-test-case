@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
 class EquipmentDemandResolver implements ArgumentValueResolverInterface
 {
-    public function supports(Request $request, ArgumentMetadata $argument)
+    public function supports(Request $request, ArgumentMetadata $argument): bool
     {
         if ($argument->getType() != EquipmentDemandRequestDTO::class) {
             return false;
@@ -19,7 +19,7 @@ class EquipmentDemandResolver implements ArgumentValueResolverInterface
         return true;
     }
 
-    public function resolve(Request $request, ArgumentMetadata $argument)
+    public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         $dto = new EquipmentDemandRequestDTO();
 
@@ -42,11 +42,13 @@ class EquipmentDemandResolver implements ArgumentValueResolverInterface
         }
 
         if ($request->get('limit')) {
-            $dto->limit = (int) $request->get('limit');
+            $limit = (int) $request->get('limit');
+            $dto->limit = $limit < 20 && $limit > 0 ? $limit : 20;
         }
 
         if ($request->get('page')) {
-            $dto->page = (int) $request->get('page');
+            $page = (int) $request->get('page');
+            $dto->page = $page > 0 ? $page : 0;
         }
 
         yield $dto;

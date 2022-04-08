@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
+ * @ORM\Table(name="orders")
  */
 class Order
 {
@@ -64,4 +65,9 @@ class Order
      * @ORM\Column(type="string", length=16)
      */
     private BookingState $state;
+
+    public function getId(): UuidInterface
+    {
+        return $this->id;
+    }
 }

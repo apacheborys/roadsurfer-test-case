@@ -13,6 +13,9 @@ services:
             - '../src/Kernel.php'
             - '../src/Tests/'
 
+    App\Controller\CommonController:
+        tags: [ 'controller.service_arguments' ]
+
     App\Resolver\EquipmentDemandResolver:
         tags:
             - { name: controller.argument_value_resolver, priority: 50 }
