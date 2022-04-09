@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Enum\BookingState;
+use App\Enum\OrderState;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -64,10 +64,115 @@ class Order
     /**
      * @ORM\Column(type="string", length=16)
      */
-    private BookingState $state;
+    private OrderState $state;
 
     public function getId(): UuidInterface
     {
         return $this->id;
+    }
+
+    public function setId(UuidInterface $id): Order
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getCustomer(): Customer
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(Customer $customer): Order
+    {
+        $this->customer = $customer;
+        return $this;
+    }
+
+    public function getCampers(): Collection
+    {
+        return $this->campers;
+    }
+
+    public function setCampers(Collection $campers): Order
+    {
+        $this->campers = $campers;
+        return $this;
+    }
+
+    public function getEquipments(): Collection
+    {
+        return $this->equipments;
+    }
+
+    public function setEquipments(Collection $equipments): Order
+    {
+        $this->equipments = $equipments;
+        return $this;
+    }
+
+    public function getStartStation(): Station
+    {
+        return $this->startStation;
+    }
+
+    public function setStartStation(Station $startStation): Order
+    {
+        $this->startStation = $startStation;
+        return $this;
+    }
+
+    public function getEndStation(): Station
+    {
+        return $this->endStation;
+    }
+
+    public function setEndStation(Station $endStation): Order
+    {
+        $this->endStation = $endStation;
+        return $this;
+    }
+
+    public function getStartDate(): \DateTimeImmutable
+    {
+        return $this->startDate;
+    }
+
+    public function setStartDate(\DateTimeImmutable $startDate): Order
+    {
+        $this->startDate = $startDate;
+        return $this;
+    }
+
+    public function getEndDate(): \DateTimeImmutable
+    {
+        return $this->endDate;
+    }
+
+    public function setEndDate(\DateTimeImmutable $endDate): Order
+    {
+        $this->endDate = $endDate;
+        return $this;
+    }
+
+    public function getMetaData(): array
+    {
+        return $this->metaData;
+    }
+
+    public function setMetaData(array $metaData): Order
+    {
+        $this->metaData = $metaData;
+        return $this;
+    }
+
+    public function getState(): OrderState
+    {
+        return $this->state;
+    }
+
+    public function setState(OrderState $state): Order
+    {
+        $this->state = $state;
+        return $this;
     }
 }

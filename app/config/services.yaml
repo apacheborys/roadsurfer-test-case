@@ -12,6 +12,9 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
             - '../src/Tests/'
+    App\DataFixtures\:
+        resource: '../src/DataFixtures'
+        tags: ['doctrine.fixture.orm']
 
     App\Controller\CommonController:
         tags: [ 'controller.service_arguments' ]

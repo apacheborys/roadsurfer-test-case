@@ -2,10 +2,10 @@
 
 namespace App\Enum;
 
-enum CampervanState
+enum CampervanState: string
 {
-    case AVAILABLE;
-    case BUSY;
-    case BOOKED;
-    case MAINTENANCE;
+    case AVAILABLE = 'available';
+    case BUSY = 'busy';
+    case BOOKED = 'booked';
+    case MAINTENANCE = 'maintenance';
 }

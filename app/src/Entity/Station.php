@@ -45,4 +45,59 @@ class Station
     {
         return $this->id;
     }
+
+    public function setId(UuidInterface $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function getLocation(): Location
+    {
+        return $this->location;
+    }
+
+    public function setLocation(Location $location): self
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    public function getMetaData(): array
+    {
+        return $this->metaData;
+    }
+
+    public function setMetaData(array $metaData): self
+    {
+        $this->metaData = $metaData;
+
+        return $this;
+    }
+
+    public function getAvailableCampers(): Collection|array
+    {
+        return $this->availableCampers;
+    }
+
+    public function setAvailableCampers(Collection|array $availableCampers): self
+    {
+        $this->availableCampers = $availableCampers;
+
+        return $this;
+    }
+
+    public function getEquipment(): Collection|array
+    {
+        return $this->equipment;
+    }
+
+    public function setEquipment(Collection|array $equipment): self
+    {
+        $this->equipment = $equipment;
+
+        return $this;
+    }
 }

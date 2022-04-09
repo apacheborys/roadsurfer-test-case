@@ -2,9 +2,9 @@
 
 namespace App\Enum;
 
-enum EquipmentState
+enum EquipmentState: string
 {
-    case AVAILABLE;
-    case BOOKED;
-    case IN_USE;
+    case AVAILABLE = 'available';
+    case BOOKED = 'booked';
+    case IN_USE = 'in_use';
 }

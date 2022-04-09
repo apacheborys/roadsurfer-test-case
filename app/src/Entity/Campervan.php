@@ -32,7 +32,7 @@ class Campervan
     private array $metaData;
 
     /**
-     * @ORM\Column(type="string", length=16)
+     * @ORM\Column(type="string", enumType="App\Enum\CampervanType")
      */
     private CampervanType $type;
 
@@ -42,7 +42,7 @@ class Campervan
     private Money $price;
 
     /**
-     * @ORM\Column(type="string", length=16)
+     * @ORM\Column(type="string", enumType="App\Enum\CampervanState")
      */
     private CampervanState $state;
 
@@ -51,4 +51,81 @@ class Campervan
      * @ORM\OneToMany(targetEntity="App\Entity\Station", mappedBy="campervan")
      */
     private ?Station $station;
+
+    public function getId(): UuidInterface
+    {
+        return $this->id;
+    }
+
+    public function setId(UuidInterface $id): Campervan
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getPlateNumber(): string
+    {
+        return $this->plateNumber;
+    }
+
+    public function setPlateNumber(string $plateNumber): Campervan
+    {
+        $this->plateNumber = $plateNumber;
+        return $this;
+    }
+
+    public function getMetaData(): array
+    {
+        return $this->metaData;
+    }
+
+    public function setMetaData(array $metaData): Campervan
+    {
+        $this->metaData = $metaData;
+        return $this;
+    }
+
+    public function getType(): CampervanType
+    {
+        return $this->type;
+    }
+
+    public function setType(CampervanType $type): Campervan
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    public function getPrice(): Money
+    {
+        return $this->price;
+    }
+
+    public function setPrice(Money $price): Campervan
+    {
+        $this->price = $price;
+        return $this;
+    }
+
+    public function getState(): CampervanState
+    {
+        return $this->state;
+    }
+
+    public function setState(CampervanState $state): Campervan
+    {
+        $this->state = $state;
+        return $this;
+    }
+
+    public function getStation(): ?Station
+    {
+        return $this->station;
+    }
+
+    public function setStation(?Station $station): Campervan
+    {
+        $this->station = $station;
+        return $this;
+    }
 }

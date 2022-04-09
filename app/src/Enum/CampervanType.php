@@ -2,9 +2,9 @@
 
 namespace App\Enum;
 
-enum CampervanType
+enum CampervanType: string
 {
-    case MINI_VAN;
-    case MIDDLE_VAN;
-    case BIG_VAN;
+    case MINI_VAN = 'mini_van';
+    case MIDDLE_VAN = 'middle_van';
+    case BIG_VAN = 'big_van';
 }
