@@ -42,8 +42,7 @@ class Equipment
     private EquipmentState $state;
 
     /**
-     * @ORM\Column(nullable=true)
-     * @ORM\OneToMany(targetEntity="App\Entity\Station", mappedBy="equipment")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Station")
      */
     private ?Station $station;
 
