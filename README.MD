@@ -6,12 +6,12 @@
 4. Create two dbs `symfony_docker` and `symfony_docker_test` (Collation utf8mb4_bin and character set utf8mb4).
 5. Grant privileges for two dbs: `GRANT ALL PRIVILEGES ON symfony_docker_test.* TO 'symfony'@'%';` and `GRANT ALL PRIVILEGES ON symfony_docker.* TO 'symfony'@'%';`
 6. Connect to docker container by `docker exec -it api_php /bin/bash`
-7. Please execute `composer install` in root directory
-8. Execute migrations `php bin/console doctrine:migration:migrate`
-9. To populate db please execute `php bin/console doctrine:fixtures:load --group=demo`.
+7. Please execute `composer install` in `/var/www/symfony_docker` directory
+8. Execute migrations `php bin/console doctrine:migration:migrate` in same directory
+9. To populate db please execute `php bin/console doctrine:fixtures:load --group=demo` in same directory
 ### Test
 1. Connect to docker container by `docker exec -it api_php /bin/bash`
-2. Please execute `composer test` in root directory
+2. Please execute `composer test` in `/var/www/symfony_docker` directory
 ### Usage
 According to task first day you will see with 1 equipment, second day with 2 equipments, because order `33b5688a-0674-4716-aa5a-2bfe0760ea0d` is finished
 ```bash
