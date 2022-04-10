@@ -133,7 +133,10 @@ class Equipment
         return [
             'id' => $this->id->toString(),
             'type' => $this->type,
-            'price' => (array) $this->price,
+            'price' => [
+                'amount' => bcdiv($this->price->getAmount(), '100', 2),
+                'currency' => $this->price->getCurrency()->getCode(),
+            ],
             'metaData' => $this->metaData,
             'state' => $this->state,
             'station' => $this->station?->getId()->toString(),

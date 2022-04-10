@@ -8,6 +8,7 @@ use App\Entity\Equipment;
 use App\Entity\Order;
 use App\Entity\Station;
 use App\Enum\OrderState;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
@@ -40,7 +41,9 @@ class OrderFixtures extends AbstractDemo implements OrderedFixtureInterface
     {
         foreach (self::DATA as $rawOrder) {
             $customer = $manager->find(Customer::class, $rawOrder['customer_id']);
+            /** @var Collection|Campervan[] $campers */
             $campers = $this->getEntities($rawOrder['campers'], Campervan::class, $manager);
+            /** @var Collection|Equipment[] $equipments */
             $equipments = $this->getEntities($rawOrder['equipments'], Equipment::class, $manager);
             $startStation = $manager->find(Station::class, $rawOrder['startStation']);
             $endStation = $manager->find(Station::class, $rawOrder['endStation']);
@@ -59,6 +62,16 @@ class OrderFixtures extends AbstractDemo implements OrderedFixtureInterface
             ;
 
             $manager->persist($order);
+
+            foreach ($equipments as $equipment) {
+                $equipment->setOrder($order);
+                $manager->persist($equipment);
+            }
+
+            foreach ($campers as $camper) {
+                $camper->setOrder($order);
+                $manager->persist($camper);
+            }
         }
 
         $manager->flush();

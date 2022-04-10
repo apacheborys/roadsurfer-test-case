@@ -51,6 +51,11 @@ class Campervan
      */
     private ?Station $station;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Order")
+     */
+    private ?Order $order;
+
     public function getId(): UuidInterface
     {
         return $this->id;
@@ -125,6 +130,17 @@ class Campervan
     public function setStation(?Station $station): Campervan
     {
         $this->station = $station;
+        return $this;
+    }
+
+    public function getOrder(): ?Order
+    {
+        return $this->order;
+    }
+
+    public function setOrder(?Order $order): Campervan
+    {
+        $this->order = $order;
         return $this;
     }
 }

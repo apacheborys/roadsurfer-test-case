@@ -62,7 +62,7 @@ class EquipmentFixtures extends AbstractDemo implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         foreach (self::DATA as $rawEquipment) {
-            $station = $manager->find(Station::class, Uuid::fromString($rawEquipment['id']));
+            $station = $manager->find(Station::class, Uuid::fromString($rawEquipment['station']));
 
             $equipment = (new Equipment())
                 ->setId(Uuid::fromString($rawEquipment['id']))

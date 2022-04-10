@@ -23,16 +23,10 @@ class EquipmentDemandResolver implements ArgumentValueResolverInterface
     {
         $dto = new EquipmentDemandRequestDTO();
 
-        if ($request->get('startDate')) {
-            $dto->startDate = new \DateTimeImmutable($request->get('startDate'));
+        if ($request->get('date')) {
+            $dto->date = new \DateTimeImmutable($request->get('date'));
         } else {
-            throw new \LogicException(sprintf('Can\'t find expected variable %s in received request', 'startDate'));
-        }
-
-        if ($request->get('endDate')) {
-            $dto->endDate = new \DateTimeImmutable($request->get('endDate'));
-        } else {
-            throw new \LogicException(sprintf('Can\'t find expected variable %s in received request', 'endDate'));
+            throw new \LogicException(sprintf('Can\'t find expected variable %s in received request', 'date'));
         }
 
         if ($request->get('station')) {

@@ -6,9 +6,7 @@ use Ramsey\Uuid\UuidInterface;
 
 class EquipmentDemandRequestDTO
 {
-    public \DateTimeImmutable $startDate;
-
-    public \DateTimeImmutable $endDate;
+    public \DateTimeImmutable $date;
 
     public UuidInterface $station;
 

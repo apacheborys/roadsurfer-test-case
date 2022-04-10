@@ -3,17 +3,17 @@
 namespace App\Controller;
 
 use App\DTO\EquipmentDemandRequestDTO;
-use App\Repository\OrderRepository;
+use App\Repository\EquipmentRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class CommonController
 {
-    private OrderRepository $orderRepository;
+    private EquipmentRepository $equipmentRepository;
 
-    public function __construct(OrderRepository $orderRepository)
+    public function __construct(EquipmentRepository $equipmentRepository)
     {
-        $this->orderRepository = $orderRepository;
+        $this->equipmentRepository = $equipmentRepository;
     }
 
     public function index(): Response
@@ -23,7 +23,7 @@ class CommonController
 
     public function equipmentDemandTimeline(EquipmentDemandRequestDTO $dto): Response
     {
-        $equipments = $this->orderRepository->equipmentDemandTimeline($dto);
+        $equipments = $this->equipmentRepository->equipmentDemandTimeline($dto);
 
         $result = [];
         foreach ($equipments as $equipment) {
