@@ -25,14 +25,10 @@ class EquipmentDemandResolver implements ArgumentValueResolverInterface
 
         if ($request->get('date')) {
             $dto->date = new \DateTimeImmutable($request->get('date'));
-        } else {
-            throw new \LogicException(sprintf('Can\'t find expected variable %s in received request', 'date'));
         }
 
         if ($request->get('station')) {
             $dto->station = Uuid::fromString($request->get('station'));
-        } else {
-            throw new \LogicException(sprintf('Can\'t find expected variable %s in received request', 'station'));
         }
 
         if ($request->get('limit')) {

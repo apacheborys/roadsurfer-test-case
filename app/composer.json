@@ -5,9 +5,9 @@
     "prefer-stable": true,
     "require": {
         "php": ">=8.1",
+        "ext-bcmath": "*",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "ext-bcmath": "*",
         "composer/package-versions-deprecated": "1.11.99.4",
         "doctrine/doctrine-bundle": "^2.4",
         "doctrine/doctrine-migrations-bundle": "^3.1",
@@ -60,6 +60,7 @@
             "php bin/console doctrine:database:drop --env=test --force --if-exists",
             "php bin/console doctrine:database:create --env=test",
             "php bin/console doctrine:migration:migrate --env=test -n",
+            "php bin/console doctrine:fixtures:load --env=test --group=demo --quiet",
             "php ./vendor/bin/phpunit",
             "php bin/console doctrine:database:drop --env=test --force"
         ],
