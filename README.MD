@@ -1,12 +1,14 @@
 # Roadsurfer test case
 ### Install
-1. Run `docker-compose up -d` (that command should not return any error)
-2. Connect to MySQL server in your MySQL client by root user (password is `secret`). Host: `localhost`, port: `4306`
-3. Create two dbs `symfony_docker` and `symfony_docker_test` (Collation utf8mb4_bin and character set utf8mb4).
-4. Grant privileges for two dbs: `GRANT ALL PRIVILEGES ON symfony_docker_test.* TO 'symfony'@'%';` and `GRANT ALL PRIVILEGES ON symfony_docker.* TO 'symfony'@'%';`
-5. Connect to docker container by `docker exec -it api_php /bin/bash`
-6. Please execute `composer install` in root directory
-7. To populate db please execute `php bin/console doctrine:fixtures:load --group=demo`.
+1. Create `mysql` directory in root
+2. Run `docker-compose up -d` (that command should not return any error)
+3. Connect to MySQL server in your MySQL client by root user (password is `secret`). Host: `localhost`, port: `4306`
+4. Create two dbs `symfony_docker` and `symfony_docker_test` (Collation utf8mb4_bin and character set utf8mb4).
+5. Grant privileges for two dbs: `GRANT ALL PRIVILEGES ON symfony_docker_test.* TO 'symfony'@'%';` and `GRANT ALL PRIVILEGES ON symfony_docker.* TO 'symfony'@'%';`
+6. Connect to docker container by `docker exec -it api_php /bin/bash`
+7. Please execute `composer install` in root directory
+8. Execute migrations `php bin/console doctrine:migration:migrate`
+9. To populate db please execute `php bin/console doctrine:fixtures:load --group=demo`.
 ### Test
 1. Connect to docker container by `docker exec -it api_php /bin/bash`
 2. Please execute `composer test` in root directory
