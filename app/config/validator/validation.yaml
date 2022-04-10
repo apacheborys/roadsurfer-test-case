@@ -1,15 +1,13 @@
 App\DTO\EquipmentDemandRequestDTO:
   properties:
-    date:
+    startDate:
+      - NotNull: ~
+    endDate:
       - NotNull: ~
     station:
       - NotNull: ~
     page:
-      - PositiveOrZero:
-          message: "You should provide valid page (0 or greater)"
+      - PositiveOrZero: ~
     limit:
-      - PositiveOrZero:
-          message: "You should provide valid page (0 or greater)"
-      - LessThanOrEqual:
-          value: 20
-          message: "You should provide less than 20"
+      - PositiveOrZero: ~
+      - LessThanOrEqual: 20

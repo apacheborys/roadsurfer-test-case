@@ -23,8 +23,12 @@ class EquipmentDemandResolver implements ArgumentValueResolverInterface
     {
         $dto = new EquipmentDemandRequestDTO();
 
-        if ($request->get('date')) {
-            $dto->date = new \DateTimeImmutable($request->get('date'));
+        if ($request->get('startDate')) {
+            $dto->startDate = new \DateTimeImmutable($request->get('startDate'));
+        }
+
+        if ($request->get('endDate')) {
+            $dto->endDate = new \DateTimeImmutable($request->get('endDate'));
         }
 
         if ($request->get('station')) {

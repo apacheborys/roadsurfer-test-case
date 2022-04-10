@@ -17,7 +17,8 @@ class FunctionalTest extends WebTestCase
      */
     public function testEquipmentDemandTimeline(
         UuidInterface $stationId,
-        \DateTime $date,
+        \DateTime $startDate,
+        \DateTime $endDate,
         int $expectedResponseCode,
         array $expectedResponse
     ): void {
@@ -27,7 +28,8 @@ class FunctionalTest extends WebTestCase
             '/api/v1/equipment-demand-timeline',
             [
                 'station' => $stationId->toString(),
-                'date' => $date->format('Y-m-d')
+                'startDate' => $startDate->format('Y-m-d'),
+                'endDate' => $endDate->format('Y-m-d'),
             ]
         );
 
@@ -41,54 +43,65 @@ class FunctionalTest extends WebTestCase
 
     public function providerEquipmentDemandTimeline(): iterable
     {
-        yield 'available 1 equipment' => [
+        yield [
             'station' => Uuid::fromString(StationFixtures::DATA[1]['id']),
-            'date' => new \DateTime(OrderFixtures::DATA[0]['endDate']),
+            'startDate' => (new \DateTime(OrderFixtures::DATA[0]['endDate']))->sub(\DateInterval::createFromDateString('1 day')),
+            'endDate' => (new \DateTime(OrderFixtures::DATA[0]['endDate']))->add(\DateInterval::createFromDateString('1 day')),
             'expectedResponseCode' => Response::HTTP_OK,
             'expectedResponse' => [
-                [
-                    'id' => EquipmentFixtures::DATA[1]['id'],
-                    'type' => EquipmentFixtures::DATA[1]['type']->value,
-                    'price' => [
-                        'amount' => bcdiv(EquipmentFixtures::DATA[1]['price']['amount'], '100', 2),
-                        'currency' => EquipmentFixtures::DATA[1]['price']['currency'],
+                '2022-01-31' => [
+                    [
+                        'id' => EquipmentFixtures::DATA[1]['id'],
+                        'type' => EquipmentFixtures::DATA[1]['type']->value,
+                        'price' => [
+                            'amount' => bcdiv(EquipmentFixtures::DATA[1]['price']['amount'], '100', 2),
+                            'currency' => EquipmentFixtures::DATA[1]['price']['currency'],
+                        ],
+                        'metaData' => EquipmentFixtures::DATA[1]['metaData'],
+                        'state' => EquipmentFixtures::DATA[1]['state']->value,
+                        'station' => EquipmentFixtures::DATA[1]['station'],
+                        'order' => EquipmentFixtures::DATA[1]['order'],
                     ],
-                    'metaData' => EquipmentFixtures::DATA[1]['metaData'],
-                    'state' => EquipmentFixtures::DATA[1]['state']->value,
-                    'station' => EquipmentFixtures::DATA[1]['station'],
-                    'order' => EquipmentFixtures::DATA[1]['order'],
                 ],
-            ]
-        ];
-
-        yield 'available 2 equipments' => [
-            'station' => Uuid::fromString(StationFixtures::DATA[1]['id']),
-            'date' => (new \DateTime(OrderFixtures::DATA[0]['endDate']))->add(\DateInterval::createFromDateString('1 day')),
-            'expectedResponseCode' => Response::HTTP_OK,
-            'expectedResponse' => [
-                [
-                    'id' => EquipmentFixtures::DATA[1]['id'],
-                    'type' => EquipmentFixtures::DATA[1]['type']->value,
-                    'price' => [
-                        'amount' => bcdiv(EquipmentFixtures::DATA[1]['price']['amount'], '100', 2),
-                        'currency' => EquipmentFixtures::DATA[1]['price']['currency'],
+                '2022-02-01' => [
+                    [
+                        'id' => EquipmentFixtures::DATA[1]['id'],
+                        'type' => EquipmentFixtures::DATA[1]['type']->value,
+                        'price' => [
+                            'amount' => bcdiv(EquipmentFixtures::DATA[1]['price']['amount'], '100', 2),
+                            'currency' => EquipmentFixtures::DATA[1]['price']['currency'],
+                        ],
+                        'metaData' => EquipmentFixtures::DATA[1]['metaData'],
+                        'state' => EquipmentFixtures::DATA[1]['state']->value,
+                        'station' => EquipmentFixtures::DATA[1]['station'],
+                        'order' => EquipmentFixtures::DATA[1]['order'],
                     ],
-                    'metaData' => EquipmentFixtures::DATA[1]['metaData'],
-                    'state' => EquipmentFixtures::DATA[1]['state']->value,
-                    'station' => EquipmentFixtures::DATA[1]['station'],
-                    'order' => EquipmentFixtures::DATA[1]['order'],
                 ],
-                [
-                    'id' => EquipmentFixtures::DATA[2]['id'],
-                    'type' => EquipmentFixtures::DATA[2]['type']->value,
-                    'price' => [
-                        'amount' => bcdiv(EquipmentFixtures::DATA[2]['price']['amount'], '100', 2),
-                        'currency' => EquipmentFixtures::DATA[2]['price']['currency'],
+                '2022-02-02' => [
+                    [
+                        'id' => EquipmentFixtures::DATA[1]['id'],
+                        'type' => EquipmentFixtures::DATA[1]['type']->value,
+                        'price' => [
+                            'amount' => bcdiv(EquipmentFixtures::DATA[1]['price']['amount'], '100', 2),
+                            'currency' => EquipmentFixtures::DATA[1]['price']['currency'],
+                        ],
+                        'metaData' => EquipmentFixtures::DATA[1]['metaData'],
+                        'state' => EquipmentFixtures::DATA[1]['state']->value,
+                        'station' => EquipmentFixtures::DATA[1]['station'],
+                        'order' => EquipmentFixtures::DATA[1]['order'],
                     ],
-                    'metaData' => EquipmentFixtures::DATA[2]['metaData'],
-                    'state' => EquipmentFixtures::DATA[2]['state']->value,
-                    'station' => EquipmentFixtures::DATA[2]['station'],
-                    'order' => OrderFixtures::DATA[0]['id'],
+                    [
+                        'id' => EquipmentFixtures::DATA[2]['id'],
+                        'type' => EquipmentFixtures::DATA[2]['type']->value,
+                        'price' => [
+                            'amount' => bcdiv(EquipmentFixtures::DATA[2]['price']['amount'], '100', 2),
+                            'currency' => EquipmentFixtures::DATA[2]['price']['currency'],
+                        ],
+                        'metaData' => EquipmentFixtures::DATA[2]['metaData'],
+                        'state' => EquipmentFixtures::DATA[2]['state']->value,
+                        'station' => EquipmentFixtures::DATA[2]['station'],
+                        'order' => OrderFixtures::DATA[0]['id'],
+                    ],
                 ],
             ]
         ];

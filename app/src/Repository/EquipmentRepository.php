@@ -8,6 +8,7 @@ use App\Entity\Order;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
+use Ramsey\Uuid\UuidInterface;
 use function Doctrine\ORM\QueryBuilder;
 
 /**
@@ -27,7 +28,7 @@ class EquipmentRepository extends ServiceEntityRepository
      * @param EquipmentDemandRequestDTO $dto
      * @return Equipment[]|null
      */
-    public function equipmentDemandTimeline(EquipmentDemandRequestDTO $dto): ?array
+    public function equipmentDemandTimeline(\DateTime $date, UuidInterface $stationId, int $limit, int $page): ?array
     {
         $qb = $this->createQueryBuilder('e');
         $qb
@@ -52,11 +53,11 @@ class EquipmentRepository extends ServiceEntityRepository
                 )
             )
             ->setParameters([
-                'date' => $dto->date,
-                'station' => $dto->station->toString(),
+                'date' => $date,
+                'station' => $stationId->toString(),
             ])
-            ->setMaxResults($dto->limit)
-            ->setFirstResult($dto->page * $dto->limit)
+            ->setMaxResults($limit)
+            ->setFirstResult($page * $limit)
         ;
 
         return $qb->getQuery()->getResult();
