@@ -6,3 +6,8 @@ equipment-demand-timeline:
   path: /api/v1/equipment-demand-timeline
   methods: GET
   controller: App\Controller\CommonController::equipmentDemandTimeline
+
+swagger-doc:
+  path: /api/v1/doc
+  methods: GET
+  controller: App\Controller\CommonController::swaggerDoc

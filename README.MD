@@ -18,3 +18,9 @@ According to task first day you will see with 1 equipment, second day with 2 equ
 curl --request GET \
   --url 'http://127.0.0.1:8989/api/v1/equipment-demand-timeline?station=fe1e6d7f-9caa-4aee-9f4a-e7c0a622236f&startDate=2022-02-01&endDate=2022-02-02'
  ```
+### Documentation
+It presents by Swagger format, to fetch it, please perform next query:
+```bash
+curl --request GET \
+  --url 'http://127.0.0.1:8989/api/v1/doc'
+```

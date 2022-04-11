@@ -1,0 +1,119 @@
+swagger: "2.0"
+info:
+  description: "This is a test case for Roadsurfer"
+  version: "1.0.0"
+  title: "Roadsurfer test case API server"
+  contact:
+    email: "borys_ermokhin@yahoo.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "example.com"
+basePath: "/api/v1"
+tags:
+  - name: "equipment"
+    description: "Equipment Demand timeline"
+schemes:
+  - "https"
+  - "http"
+paths:
+  /equipment-demand-timeline:
+    get:
+      tags:
+        - "equipment"
+      summary: "Get demand for specific date"
+      description: "That timeline will return available equipment for each date in provided dateperiod. Please take to attention, list of equipment limited to 20 qty for capacity reasons"
+      operationId: "equipment-demand-timeline"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "query"
+          name: "station"
+          description: "Id of station for timeline"
+          required: true
+          type: string
+          format: uuid
+        - in: "query"
+          name: "startDate"
+          description: "Start date for timeline"
+          required: true
+          type: string
+          format: date
+        - in: "query"
+          name: "endDate"
+          description: "End date for timeline"
+          required: true
+          type: string
+          format: date
+        - in: "query"
+          name: "page"
+          description: "Page of results"
+          required: false
+          type: number
+          minimum: 0
+          exclusiveMinimum: true
+        - in: "query"
+          name: "limit"
+          description: "Limit results (dates)"
+          required: false
+          type: number
+          minimum: 0
+          exclusiveMinimum: true
+          maximum: 20
+      responses:
+        "400":
+          description: "Invalid input"
+        "201":
+          description: "Empty response"
+        "200":
+          description: "Successful fetch"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/DateTimeItem"
+definitions:
+  DateTimeItem:
+    type: "array"
+    items:
+      $ref: "#/definitions/Equipment"
+  Equipment:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+        example: "1d3e9521-5296-43d5-8edc-f8e95cfadf0a"
+      type:
+        type: "string"
+        enum: ["portable_toilet", "bed_sheet", "sleeping_bag", "camping_table", "chair"]
+      price:
+        $ref: "#/definitions/Money"
+      metaData:
+        type: "object"
+        description: "Any helpful data"
+      state:
+        type: "string"
+        enum: ["available", "booked", "in_use"]
+      station:
+        type: "string"
+        format: "uuid"
+        description: "Referenced station. Can be nullable"
+        example: "dd4403be-7ef1-4cff-9e0c-aa141414d140"
+      order:
+        type: "string"
+        format: "uuid"
+        description: "Referenced order. Can be nullable"
+        example: "775b74e5-1cd0-4af4-a3a8-bb8e3eb97f2b"
+  Money:
+    type: "object"
+    properties:
+      amount:
+        type: "string"
+        description: "Amount"
+        example: "10.00"
+      currency:
+        type: "string"
+        description: "Currency literal according to ISO 4217"
+        example: "EUR"

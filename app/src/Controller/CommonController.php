@@ -11,11 +11,13 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class CommonController
 {
+    private string $projectDir;
     private EquipmentRepository $equipmentRepository;
     private ValidatorInterface $validator;
 
-    public function __construct(EquipmentRepository $equipmentRepository, ValidatorInterface $validator)
+    public function __construct(string $projectDir, EquipmentRepository $equipmentRepository, ValidatorInterface $validator)
     {
+        $this->projectDir = $projectDir;
         $this->equipmentRepository = $equipmentRepository;
         $this->validator = $validator;
     }
@@ -48,6 +50,16 @@ class CommonController
         };
 
         return new JsonResponse($result, empty($result) ? Response::HTTP_NO_CONTENT : Response::HTTP_OK);
+    }
+
+    public function swaggerDoc(): Response
+    {
+        $address = implode(DIRECTORY_SEPARATOR, [$this->projectDir, 'resources', 'Swagger', 'doc.yaml']);
+
+        $response = new Response(file_get_contents($address));
+        $response->headers->set('Content-Type', 'text/yaml');
+
+        return $response;
     }
 
     private function fetchEquipmentData(\DateTime $cursorDate, UuidInterface $stationId, array &$result): void
