@@ -33,8 +33,8 @@ class CommonController
         }
 
         // @TODO Should be moved to custom constraint
-        if ($dto->startDate->diff($dto->endDate)->days > 20) {
-            return new JsonResponse('Date interval can\'t be more than 20 days', Response::HTTP_BAD_REQUEST);
+        if ($dto->startDate > $dto->endDate || $dto->startDate->diff($dto->endDate)->days > 20) {
+            return new JsonResponse('Date interval is wrong', Response::HTTP_BAD_REQUEST);
         }
 
         $cursorDate = \DateTime::createFromImmutable($dto->startDate)
